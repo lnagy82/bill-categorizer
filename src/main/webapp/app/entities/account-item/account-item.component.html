@@ -17,18 +17,18 @@
     <div class="table-responsive" *ngIf="accountItems?.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
-            <tr>
-            <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
-            <th scope="col" ><span jhiTranslate="billcategorizerApp.accountItem.date">Date</span></th>
-            <th scope="col" ><span jhiTranslate="billcategorizerApp.accountItem.transactionType">Transaction Type</span></th>
-            <th scope="col" ><span jhiTranslate="billcategorizerApp.accountItem.description">Description</span></th>
-            <th scope="col" ><span jhiTranslate="billcategorizerApp.accountItem.amount">Amount</span></th>
-            <th scope="col" ><span jhiTranslate="billcategorizerApp.accountItem.currency">Currency</span></th>
-            <th scope="col" ><span jhiTranslate="billcategorizerApp.accountItem.category">Category</span></th>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="date"><span jhiTranslate="billcategorizerApp.accountItem.date">Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="transactionType"><span jhiTranslate="billcategorizerApp.accountItem.transactionType">Transaction Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="description"><span jhiTranslate="billcategorizerApp.accountItem.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="amount"><span jhiTranslate="billcategorizerApp.accountItem.amount">Amount</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="currency"><span jhiTranslate="billcategorizerApp.accountItem.currency">Currency</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="category"><span jhiTranslate="billcategorizerApp.accountItem.category">Category</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
-            <tbody>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let accountItem of accountItems ;trackBy: trackId">
                 <td><a [routerLink]="['/account-item', accountItem.id, 'view' ]">{{accountItem.id}}</a></td>
                 <td>{{accountItem.date | date:'medium'}}</td>

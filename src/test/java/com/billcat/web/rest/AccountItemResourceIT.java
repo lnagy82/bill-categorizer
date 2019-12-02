@@ -3,6 +3,9 @@ package com.billcat.web.rest;
 import com.billcat.BillcategorizerApp;
 import com.billcat.domain.AccountItem;
 import com.billcat.repository.AccountItemRepository;
+import com.billcat.service.AccountItemService;
+import com.billcat.service.dto.AccountItemDTO;
+import com.billcat.service.mapper.AccountItemMapper;
 import com.billcat.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -58,6 +61,12 @@ public class AccountItemResourceIT {
     private AccountItemRepository accountItemRepository;
 
     @Autowired
+    private AccountItemMapper accountItemMapper;
+
+    @Autowired
+    private AccountItemService accountItemService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -79,7 +88,7 @@ public class AccountItemResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final AccountItemResource accountItemResource = new AccountItemResource(accountItemRepository);
+        final AccountItemResource accountItemResource = new AccountItemResource(accountItemService);
         this.restAccountItemMockMvc = MockMvcBuilders.standaloneSetup(accountItemResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -132,9 +141,10 @@ public class AccountItemResourceIT {
         int databaseSizeBeforeCreate = accountItemRepository.findAll().size();
 
         // Create the AccountItem
+        AccountItemDTO accountItemDTO = accountItemMapper.toDto(accountItem);
         restAccountItemMockMvc.perform(post("/api/account-items")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(accountItem)))
+            .content(TestUtil.convertObjectToJsonBytes(accountItemDTO)))
             .andExpect(status().isCreated());
 
         // Validate the AccountItem in the database
@@ -156,11 +166,12 @@ public class AccountItemResourceIT {
 
         // Create the AccountItem with an existing ID
         accountItem.setId(1L);
+        AccountItemDTO accountItemDTO = accountItemMapper.toDto(accountItem);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restAccountItemMockMvc.perform(post("/api/account-items")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(accountItem)))
+            .content(TestUtil.convertObjectToJsonBytes(accountItemDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the AccountItem in the database
@@ -234,10 +245,11 @@ public class AccountItemResourceIT {
             .amount(UPDATED_AMOUNT)
             .currency(UPDATED_CURRENCY)
             .category(UPDATED_CATEGORY);
+        AccountItemDTO accountItemDTO = accountItemMapper.toDto(updatedAccountItem);
 
         restAccountItemMockMvc.perform(put("/api/account-items")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedAccountItem)))
+            .content(TestUtil.convertObjectToJsonBytes(accountItemDTO)))
             .andExpect(status().isOk());
 
         // Validate the AccountItem in the database
@@ -258,11 +270,12 @@ public class AccountItemResourceIT {
         int databaseSizeBeforeUpdate = accountItemRepository.findAll().size();
 
         // Create the AccountItem
+        AccountItemDTO accountItemDTO = accountItemMapper.toDto(accountItem);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restAccountItemMockMvc.perform(put("/api/account-items")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(accountItem)))
+            .content(TestUtil.convertObjectToJsonBytes(accountItemDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the AccountItem in the database
