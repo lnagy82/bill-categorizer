@@ -1,0 +1,27 @@
+{
+  "billcategorizerApp": {
+    "accountItem": {
+      "home": {
+        "title": "Account Items",
+        "createLabel": "Create a new Account Item",
+        "createOrEditLabel": "Create or edit a Account Item",
+        "notFound": "No Account Items found"
+      },
+      "created": "A new Account Item is created with identifier {{ param }}",
+      "updated": "A Account Item is updated with identifier {{ param }}",
+      "deleted": "A Account Item is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Account Item {{ id }}?"
+      },
+      "detail": {
+        "title": "Account Item"
+      },
+      "date": "Date",
+      "transactionType": "Transaction Type",
+      "description": "Description",
+      "amount": "Amount",
+      "currency": "Currency",
+      "category": "Category"
+    }
+  }
+}
