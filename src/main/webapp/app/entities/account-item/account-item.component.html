@@ -1,0 +1,65 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="billcategorizerApp.accountItem.home.title">Account Items</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-account-item" [routerLink]="['/account-item/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="billcategorizerApp.accountItem.home.createLabel">
+            Create a new Account Item
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="accountItems?.length === 0">
+        <span jhiTranslate="billcategorizerApp.accountItem.home.notFound">No accountItems found</span>
+    </div>
+    <div class="table-responsive" *ngIf="accountItems?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr>
+            <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+            <th scope="col" ><span jhiTranslate="billcategorizerApp.accountItem.date">Date</span></th>
+            <th scope="col" ><span jhiTranslate="billcategorizerApp.accountItem.transactionType">Transaction Type</span></th>
+            <th scope="col" ><span jhiTranslate="billcategorizerApp.accountItem.description">Description</span></th>
+            <th scope="col" ><span jhiTranslate="billcategorizerApp.accountItem.amount">Amount</span></th>
+            <th scope="col" ><span jhiTranslate="billcategorizerApp.accountItem.currency">Currency</span></th>
+            <th scope="col" ><span jhiTranslate="billcategorizerApp.accountItem.category">Category</span></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let accountItem of accountItems ;trackBy: trackId">
+                <td><a [routerLink]="['/account-item', accountItem.id, 'view' ]">{{accountItem.id}}</a></td>
+                <td>{{accountItem.date | date:'medium'}}</td>
+                <td>{{accountItem.transactionType}}</td>
+                <td>{{accountItem.description}}</td>
+                <td>{{accountItem.amount}}</td>
+                <td>{{accountItem.currency}}</td>
+                <td jhiTranslate="{{'billcategorizerApp.Category.' + accountItem.category}}">{{accountItem.category}}</td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/account-item', accountItem.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/account-item', accountItem.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit" (click)="delete(accountItem)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
