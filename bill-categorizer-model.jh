@@ -1,15 +1,15 @@
+entity Category {
+    name String
+}
+
 entity AccountItem {
 	date Instant,
     transactionType String,
     description String,
     amount Double,
-    currency String,
-    category Category
+    currency String
 }
 
-enum Category {
-    FOOD
-}
 
 //relationship OneToOne {
 //	Country{region} to Region
@@ -40,9 +40,13 @@ enum Category {
 //	Employee
 //}
 
-//relationship ManyToOne {
-//	Employee{manager} to Employee
-//}
+relationship ManyToOne {
+	AccountItem{category} to Category
+}
+
+relationship ManyToOne {
+	Category{parent} to Category
+}
 
 // defining multiple oneToOne relationships
 // relationship OneToOne {

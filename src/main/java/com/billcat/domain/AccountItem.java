@@ -1,4 +1,5 @@
 package com.billcat.domain;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -6,8 +7,6 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
-
-import com.billcat.domain.enumeration.Category;
 
 /**
  * A AccountItem.
@@ -39,8 +38,8 @@ public class AccountItem implements Serializable {
     @Column(name = "currency")
     private String currency;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "category")
+    @ManyToOne
+    @JsonIgnoreProperties("accountItems")
     private Category category;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -156,7 +155,6 @@ public class AccountItem implements Serializable {
             ", description='" + getDescription() + "'" +
             ", amount=" + getAmount() +
             ", currency='" + getCurrency() + "'" +
-            ", category='" + getCategory() + "'" +
             "}";
     }
 }

@@ -20,15 +20,18 @@
         {
             "fieldName": "currency",
             "fieldType": "String"
-        },
-        {
-            "fieldName": "category",
-            "fieldType": "Category",
-            "fieldValues": "FOOD"
         }
     ],
-    "relationships": [],
-    "changelogDate": "20191202205353",
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "category",
+            "otherEntityRelationshipName": "accountItem",
+            "relationshipName": "category",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20191204181105",
     "entityTableName": "account_item",
     "dto": "mapstruct",
     "pagination": "infinite-scroll",

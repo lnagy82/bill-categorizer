@@ -1,40 +1,31 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { take, map } from 'rxjs/operators';
-import * as moment from 'moment';
-import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
-import { AccountItemService } from 'app/entities/account-item/account-item.service';
-import { IAccountItem, AccountItem } from 'app/shared/model/account-item.model';
+import { CategoryService } from 'app/entities/category/category.service';
+import { ICategory, Category } from 'app/shared/model/category.model';
 
 describe('Service Tests', () => {
-  describe('AccountItem Service', () => {
+  describe('Category Service', () => {
     let injector: TestBed;
-    let service: AccountItemService;
+    let service: CategoryService;
     let httpMock: HttpTestingController;
-    let elemDefault: IAccountItem;
+    let elemDefault: ICategory;
     let expectedResult;
-    let currentDate: moment.Moment;
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule]
       });
       expectedResult = {};
       injector = getTestBed();
-      service = injector.get(AccountItemService);
+      service = injector.get(CategoryService);
       httpMock = injector.get(HttpTestingController);
-      currentDate = moment();
 
-      elemDefault = new AccountItem(0, currentDate, 'AAAAAAA', 'AAAAAAA', 0, 'AAAAAAA');
+      elemDefault = new Category(0, 'AAAAAAA');
     });
 
     describe('Service methods', () => {
       it('should find an element', () => {
-        const returnedFromService = Object.assign(
-          {
-            date: currentDate.format(DATE_TIME_FORMAT)
-          },
-          elemDefault
-        );
+        const returnedFromService = Object.assign({}, elemDefault);
         service
           .find(123)
           .pipe(take(1))
@@ -45,22 +36,16 @@ describe('Service Tests', () => {
         expect(expectedResult).toMatchObject({ body: elemDefault });
       });
 
-      it('should create a AccountItem', () => {
+      it('should create a Category', () => {
         const returnedFromService = Object.assign(
           {
-            id: 0,
-            date: currentDate.format(DATE_TIME_FORMAT)
+            id: 0
           },
           elemDefault
         );
-        const expected = Object.assign(
-          {
-            date: currentDate
-          },
-          returnedFromService
-        );
+        const expected = Object.assign({}, returnedFromService);
         service
-          .create(new AccountItem(null))
+          .create(new Category(null))
           .pipe(take(1))
           .subscribe(resp => (expectedResult = resp));
         const req = httpMock.expectOne({ method: 'POST' });
@@ -68,24 +53,15 @@ describe('Service Tests', () => {
         expect(expectedResult).toMatchObject({ body: expected });
       });
 
-      it('should update a AccountItem', () => {
+      it('should update a Category', () => {
         const returnedFromService = Object.assign(
           {
-            date: currentDate.format(DATE_TIME_FORMAT),
-            transactionType: 'BBBBBB',
-            description: 'BBBBBB',
-            amount: 1,
-            currency: 'BBBBBB'
+            name: 'BBBBBB'
           },
           elemDefault
         );
 
-        const expected = Object.assign(
-          {
-            date: currentDate
-          },
-          returnedFromService
-        );
+        const expected = Object.assign({}, returnedFromService);
         service
           .update(expected)
           .pipe(take(1))
@@ -95,23 +71,14 @@ describe('Service Tests', () => {
         expect(expectedResult).toMatchObject({ body: expected });
       });
 
-      it('should return a list of AccountItem', () => {
+      it('should return a list of Category', () => {
         const returnedFromService = Object.assign(
           {
-            date: currentDate.format(DATE_TIME_FORMAT),
-            transactionType: 'BBBBBB',
-            description: 'BBBBBB',
-            amount: 1,
-            currency: 'BBBBBB'
+            name: 'BBBBBB'
           },
           elemDefault
         );
-        const expected = Object.assign(
-          {
-            date: currentDate
-          },
-          returnedFromService
-        );
+        const expected = Object.assign({}, returnedFromService);
         service
           .query(expected)
           .pipe(
@@ -125,7 +92,7 @@ describe('Service Tests', () => {
         expect(expectedResult).toContainEqual(expected);
       });
 
-      it('should delete a AccountItem', () => {
+      it('should delete a Category', () => {
         service.delete(123).subscribe(resp => (expectedResult = resp.ok));
 
         const req = httpMock.expectOne({ method: 'DELETE' });

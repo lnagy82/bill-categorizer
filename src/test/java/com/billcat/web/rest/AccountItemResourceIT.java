@@ -32,7 +32,6 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.billcat.domain.enumeration.Category;
 /**
  * Integration tests for the {@link AccountItemResource} REST controller.
  */
@@ -53,9 +52,6 @@ public class AccountItemResourceIT {
 
     private static final String DEFAULT_CURRENCY = "AAAAAAAAAA";
     private static final String UPDATED_CURRENCY = "BBBBBBBBBB";
-
-    private static final Category DEFAULT_CATEGORY = Category.FOOD;
-    private static final Category UPDATED_CATEGORY = Category.FOOD;
 
     @Autowired
     private AccountItemRepository accountItemRepository;
@@ -109,8 +105,7 @@ public class AccountItemResourceIT {
             .transactionType(DEFAULT_TRANSACTION_TYPE)
             .description(DEFAULT_DESCRIPTION)
             .amount(DEFAULT_AMOUNT)
-            .currency(DEFAULT_CURRENCY)
-            .category(DEFAULT_CATEGORY);
+            .currency(DEFAULT_CURRENCY);
         return accountItem;
     }
     /**
@@ -125,8 +120,7 @@ public class AccountItemResourceIT {
             .transactionType(UPDATED_TRANSACTION_TYPE)
             .description(UPDATED_DESCRIPTION)
             .amount(UPDATED_AMOUNT)
-            .currency(UPDATED_CURRENCY)
-            .category(UPDATED_CATEGORY);
+            .currency(UPDATED_CURRENCY);
         return accountItem;
     }
 
@@ -156,7 +150,6 @@ public class AccountItemResourceIT {
         assertThat(testAccountItem.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testAccountItem.getAmount()).isEqualTo(DEFAULT_AMOUNT);
         assertThat(testAccountItem.getCurrency()).isEqualTo(DEFAULT_CURRENCY);
-        assertThat(testAccountItem.getCategory()).isEqualTo(DEFAULT_CATEGORY);
     }
 
     @Test
@@ -195,8 +188,7 @@ public class AccountItemResourceIT {
             .andExpect(jsonPath("$.[*].transactionType").value(hasItem(DEFAULT_TRANSACTION_TYPE)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
             .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.doubleValue())))
-            .andExpect(jsonPath("$.[*].currency").value(hasItem(DEFAULT_CURRENCY)))
-            .andExpect(jsonPath("$.[*].category").value(hasItem(DEFAULT_CATEGORY.toString())));
+            .andExpect(jsonPath("$.[*].currency").value(hasItem(DEFAULT_CURRENCY)));
     }
     
     @Test
@@ -214,8 +206,7 @@ public class AccountItemResourceIT {
             .andExpect(jsonPath("$.transactionType").value(DEFAULT_TRANSACTION_TYPE))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
             .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT.doubleValue()))
-            .andExpect(jsonPath("$.currency").value(DEFAULT_CURRENCY))
-            .andExpect(jsonPath("$.category").value(DEFAULT_CATEGORY.toString()));
+            .andExpect(jsonPath("$.currency").value(DEFAULT_CURRENCY));
     }
 
     @Test
@@ -243,8 +234,7 @@ public class AccountItemResourceIT {
             .transactionType(UPDATED_TRANSACTION_TYPE)
             .description(UPDATED_DESCRIPTION)
             .amount(UPDATED_AMOUNT)
-            .currency(UPDATED_CURRENCY)
-            .category(UPDATED_CATEGORY);
+            .currency(UPDATED_CURRENCY);
         AccountItemDTO accountItemDTO = accountItemMapper.toDto(updatedAccountItem);
 
         restAccountItemMockMvc.perform(put("/api/account-items")
@@ -261,7 +251,6 @@ public class AccountItemResourceIT {
         assertThat(testAccountItem.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testAccountItem.getAmount()).isEqualTo(UPDATED_AMOUNT);
         assertThat(testAccountItem.getCurrency()).isEqualTo(UPDATED_CURRENCY);
-        assertThat(testAccountItem.getCategory()).isEqualTo(UPDATED_CATEGORY);
     }
 
     @Test

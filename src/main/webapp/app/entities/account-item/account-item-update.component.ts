@@ -7,8 +7,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
+import { JhiAlertService } from 'ng-jhipster';
 import { IAccountItem, AccountItem } from 'app/shared/model/account-item.model';
 import { AccountItemService } from './account-item.service';
+import { ICategory } from 'app/shared/model/category.model';
+import { CategoryService } from 'app/entities/category/category.service';
 
 @Component({
   selector: 'jhi-account-item-update',
@@ -17,6 +20,8 @@ import { AccountItemService } from './account-item.service';
 export class AccountItemUpdateComponent implements OnInit {
   isSaving: boolean;
 
+  categories: ICategory[];
+
   editForm = this.fb.group({
     id: [],
     date: [],
@@ -24,16 +29,25 @@ export class AccountItemUpdateComponent implements OnInit {
     description: [],
     amount: [],
     currency: [],
-    category: []
+    categoryId: []
   });
 
-  constructor(protected accountItemService: AccountItemService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
+  constructor(
+    protected jhiAlertService: JhiAlertService,
+    protected accountItemService: AccountItemService,
+    protected categoryService: CategoryService,
+    protected activatedRoute: ActivatedRoute,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ accountItem }) => {
       this.updateForm(accountItem);
     });
+    this.categoryService
+      .query()
+      .subscribe((res: HttpResponse<ICategory[]>) => (this.categories = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(accountItem: IAccountItem) {
@@ -44,7 +58,7 @@ export class AccountItemUpdateComponent implements OnInit {
       description: accountItem.description,
       amount: accountItem.amount,
       currency: accountItem.currency,
-      category: accountItem.category
+      categoryId: accountItem.categoryId
     });
   }
 
@@ -71,7 +85,7 @@ export class AccountItemUpdateComponent implements OnInit {
       description: this.editForm.get(['description']).value,
       amount: this.editForm.get(['amount']).value,
       currency: this.editForm.get(['currency']).value,
-      category: this.editForm.get(['category']).value
+      categoryId: this.editForm.get(['categoryId']).value
     };
   }
 
@@ -86,5 +100,12 @@ export class AccountItemUpdateComponent implements OnInit {
 
   protected onSaveError() {
     this.isSaving = false;
+  }
+  protected onError(errorMessage: string) {
+    this.jhiAlertService.error(errorMessage, null, null);
+  }
+
+  trackCategoryById(index: number, item: ICategory) {
+    return item.id;
   }
 }

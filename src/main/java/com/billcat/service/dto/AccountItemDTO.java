@@ -2,7 +2,6 @@ package com.billcat.service.dto;
 import java.time.Instant;
 import java.io.Serializable;
 import java.util.Objects;
-import com.billcat.domain.enumeration.Category;
 
 /**
  * A DTO for the {@link com.billcat.domain.AccountItem} entity.
@@ -21,8 +20,8 @@ public class AccountItemDTO implements Serializable {
 
     private String currency;
 
-    private Category category;
 
+    private Long categoryId;
 
     public Long getId() {
         return id;
@@ -72,12 +71,12 @@ public class AccountItemDTO implements Serializable {
         this.currency = currency;
     }
 
-    public Category getCategory() {
-        return category;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
     @Override
@@ -110,7 +109,7 @@ public class AccountItemDTO implements Serializable {
             ", description='" + getDescription() + "'" +
             ", amount=" + getAmount() +
             ", currency='" + getCurrency() + "'" +
-            ", category='" + getCategory() + "'" +
+            ", category=" + getCategoryId() +
             "}";
     }
 }

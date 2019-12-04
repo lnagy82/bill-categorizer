@@ -1,5 +1,4 @@
 import { Moment } from 'moment';
-import { Category } from 'app/shared/model/enumerations/category.model';
 
 export interface IAccountItem {
   id?: number;
@@ -8,7 +7,7 @@ export interface IAccountItem {
   description?: string;
   amount?: number;
   currency?: string;
-  category?: Category;
+  categoryId?: number;
 }
 
 export class AccountItem implements IAccountItem {
@@ -19,6 +18,6 @@ export class AccountItem implements IAccountItem {
     public description?: string,
     public amount?: number,
     public currency?: string,
-    public category?: Category
+    public categoryId?: number
   ) {}
 }

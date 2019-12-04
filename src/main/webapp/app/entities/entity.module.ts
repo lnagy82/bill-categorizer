@@ -5,6 +5,10 @@ import { RouterModule } from '@angular/router';
   imports: [
     RouterModule.forChild([
       {
+        path: 'category',
+        loadChildren: () => import('./category/category.module').then(m => m.BillcategorizerCategoryModule)
+      },
+      {
         path: 'account-item',
         loadChildren: () => import('./account-item/account-item.module').then(m => m.BillcategorizerAccountItemModule)
       }

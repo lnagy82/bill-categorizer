@@ -8,10 +8,14 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link AccountItem} and its DTO {@link AccountItemDTO}.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring", uses = {CategoryMapper.class})
 public interface AccountItemMapper extends EntityMapper<AccountItemDTO, AccountItem> {
 
+    @Mapping(source = "category.id", target = "categoryId")
+    AccountItemDTO toDto(AccountItem accountItem);
 
+    @Mapping(source = "categoryId", target = "category")
+    AccountItem toEntity(AccountItemDTO accountItemDTO);
 
     default AccountItem fromId(Long id) {
         if (id == null) {
