@@ -2,6 +2,10 @@ entity Category {
     name String
 }
 
+entity Indicator{
+	text String
+}
+
 entity AccountItem {
 	date Instant,
     transactionType String,
@@ -41,11 +45,15 @@ entity AccountItem {
 //}
 
 relationship ManyToOne {
-	AccountItem{category} to Category
+	AccountItem{category(name)} to Category
 }
 
 relationship ManyToOne {
-	Category{parent} to Category
+	Indicator{category(name)} to Category
+}
+
+relationship ManyToOne {
+	Category{parent(name)} to Category
 }
 
 // defining multiple oneToOne relationships

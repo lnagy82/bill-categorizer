@@ -14,6 +14,8 @@ public class CategoryDTO implements Serializable {
 
     private Long parentId;
 
+    private String parentName;
+
     public Long getId() {
         return id;
     }
@@ -36,6 +38,14 @@ public class CategoryDTO implements Serializable {
 
     public void setParentId(Long categoryId) {
         this.parentId = categoryId;
+    }
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String categoryName) {
+        this.parentName = categoryName;
     }
 
     @Override
@@ -65,6 +75,7 @@ public class CategoryDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", parent=" + getParentId() +
+            ", parent='" + getParentName() + "'" +
             "}";
     }
 }
