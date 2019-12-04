@@ -1,0 +1,33 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="indicator">
+            <h2><span jhiTranslate="billcategorizerApp.indicator.detail.title">Indicator</span> {{indicator.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="billcategorizerApp.indicator.text">Text</span></dt>
+                <dd>
+                    <span>{{indicator.text}}</span>
+                </dd>
+                <dt><span jhiTranslate="billcategorizerApp.indicator.category">Category</span></dt>
+                <dd>
+                    <div *ngIf="indicator.categoryId">
+                        <a [routerLink]="['/category', indicator.categoryId, 'view']">{{indicator.categoryId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/indicator', indicator.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
