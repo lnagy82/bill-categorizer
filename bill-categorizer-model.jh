@@ -45,15 +45,15 @@ entity AccountItem {
 //}
 
 relationship ManyToOne {
-	AccountItem{category} to Category
+	AccountItem{category(name)} to Category
 }
 
 relationship ManyToOne {
-	Indicator{category} to Category
+	Indicator{category(name)} to Category
 }
 
 relationship ManyToOne {
-	Category{parent} to Category
+	Category{parent(name)} to Category
 }
 
 // defining multiple oneToOne relationships

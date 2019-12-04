@@ -19,7 +19,7 @@
                     <label class="form-control-label" jhiTranslate="billcategorizerApp.indicator.category" for="field_category">Category</label>
                     <select class="form-control" id="field_category" name="category" formControlName="categoryId">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="categoryOption.id" *ngFor="let categoryOption of categories; trackBy: trackCategoryById">{{categoryOption.id}}</option>
+                        <option [ngValue]="categoryOption.id" *ngFor="let categoryOption of categories; trackBy: trackCategoryById">{{categoryOption.name}}</option>
                     </select>
                 </div>
             </div>

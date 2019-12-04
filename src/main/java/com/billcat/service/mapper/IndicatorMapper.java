@@ -12,6 +12,7 @@ import org.mapstruct.*;
 public interface IndicatorMapper extends EntityMapper<IndicatorDTO, Indicator> {
 
     @Mapping(source = "category.id", target = "categoryId")
+    @Mapping(source = "category.name", target = "categoryName")
     IndicatorDTO toDto(Indicator indicator);
 
     @Mapping(source = "categoryId", target = "category")

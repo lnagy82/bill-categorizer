@@ -7,6 +7,7 @@ export interface IAccountItem {
   description?: string;
   amount?: number;
   currency?: string;
+  categoryName?: string;
   categoryId?: number;
 }
 
@@ -18,6 +19,7 @@ export class AccountItem implements IAccountItem {
     public description?: string,
     public amount?: number,
     public currency?: string,
+    public categoryName?: string,
     public categoryId?: number
   ) {}
 }

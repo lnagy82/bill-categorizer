@@ -30,7 +30,7 @@
                 <td>{{category.name}}</td>
                 <td>
                     <div *ngIf="category.parentId">
-                        <a [routerLink]="['/category', category.parentId , 'view' ]" >{{category.parentId}}</a>
+                        <a [routerLink]="['/category', category.parentId , 'view' ]" >{{category.parentName}}</a>
                     </div>
                 </td>
                 <td class="text-right">

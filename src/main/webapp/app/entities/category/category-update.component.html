@@ -19,7 +19,7 @@
                     <label class="form-control-label" jhiTranslate="billcategorizerApp.category.parent" for="field_parent">Parent</label>
                     <select class="form-control" id="field_parent" name="parent" formControlName="parentId">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="categoryOption.id" *ngFor="let categoryOption of categories; trackBy: trackCategoryById">{{categoryOption.id}}</option>
+                        <option [ngValue]="categoryOption.id" *ngFor="let categoryOption of categories; trackBy: trackCategoryById">{{categoryOption.name}}</option>
                     </select>
                 </div>
             </div>

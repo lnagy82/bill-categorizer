@@ -12,7 +12,7 @@
             "otherEntityName": "category",
             "otherEntityRelationshipName": "category",
             "relationshipName": "parent",
-            "otherEntityField": "id"
+            "otherEntityField": "name"
         }
     ],
     "changelogDate": "20191204181104",

@@ -12,7 +12,7 @@
                 <dt><span jhiTranslate="billcategorizerApp.category.parent">Parent</span></dt>
                 <dd>
                     <div *ngIf="category.parentId">
-                        <a [routerLink]="['/category', category.parentId, 'view']">{{category.parentId}}</a>
+                        <a [routerLink]="['/category', category.parentId, 'view']">{{category.parentName}}</a>
                     </div>
                 </dd>
             </dl>

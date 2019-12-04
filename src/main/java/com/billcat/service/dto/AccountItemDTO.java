@@ -23,6 +23,8 @@ public class AccountItemDTO implements Serializable {
 
     private Long categoryId;
 
+    private String categoryName;
+
     public Long getId() {
         return id;
     }
@@ -79,6 +81,14 @@ public class AccountItemDTO implements Serializable {
         this.categoryId = categoryId;
     }
 
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -110,6 +120,7 @@ public class AccountItemDTO implements Serializable {
             ", amount=" + getAmount() +
             ", currency='" + getCurrency() + "'" +
             ", category=" + getCategoryId() +
+            ", category='" + getCategoryName() + "'" +
             "}";
     }
 }

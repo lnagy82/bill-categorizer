@@ -14,6 +14,8 @@ public class IndicatorDTO implements Serializable {
 
     private Long categoryId;
 
+    private String categoryName;
+
     public Long getId() {
         return id;
     }
@@ -36,6 +38,14 @@ public class IndicatorDTO implements Serializable {
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     @Override
@@ -65,6 +75,7 @@ public class IndicatorDTO implements Serializable {
             "id=" + getId() +
             ", text='" + getText() + "'" +
             ", category=" + getCategoryId() +
+            ", category='" + getCategoryName() + "'" +
             "}";
     }
 }

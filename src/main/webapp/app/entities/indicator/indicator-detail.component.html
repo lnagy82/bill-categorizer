@@ -12,7 +12,7 @@
                 <dt><span jhiTranslate="billcategorizerApp.indicator.category">Category</span></dt>
                 <dd>
                     <div *ngIf="indicator.categoryId">
-                        <a [routerLink]="['/category', indicator.categoryId, 'view']">{{indicator.categoryId}}</a>
+                        <a [routerLink]="['/category', indicator.categoryId, 'view']">{{indicator.categoryName}}</a>
                     </div>
                 </dd>
             </dl>
