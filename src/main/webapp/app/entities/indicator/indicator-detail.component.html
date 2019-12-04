@@ -1,18 +1,18 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <div *ngIf="category">
-            <h2><span jhiTranslate="billcategorizerApp.category.detail.title">Category</span> {{category.id}}</h2>
+        <div *ngIf="indicator">
+            <h2><span jhiTranslate="billcategorizerApp.indicator.detail.title">Indicator</span> {{indicator.id}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="billcategorizerApp.category.name">Name</span></dt>
+                <dt><span jhiTranslate="billcategorizerApp.indicator.text">Text</span></dt>
                 <dd>
-                    <span>{{category.name}}</span>
+                    <span>{{indicator.text}}</span>
                 </dd>
-                <dt><span jhiTranslate="billcategorizerApp.category.parent">Parent</span></dt>
+                <dt><span jhiTranslate="billcategorizerApp.indicator.category">Category</span></dt>
                 <dd>
-                    <div *ngIf="category.parentId">
-                        <a [routerLink]="['/category', category.parentId, 'view']">{{category.parentName}}</a>
+                    <div *ngIf="indicator.categoryId">
+                        <a [routerLink]="['/category', indicator.categoryId, 'view']">{{indicator.categoryName}}</a>
                     </div>
                 </dd>
             </dl>
@@ -24,7 +24,7 @@
             </button>
 
             <button type="button"
-                    [routerLink]="['/category', category.id, 'edit']"
+                    [routerLink]="['/indicator', indicator.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>

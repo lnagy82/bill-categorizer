@@ -12,6 +12,7 @@ import org.mapstruct.*;
 public interface AccountItemMapper extends EntityMapper<AccountItemDTO, AccountItem> {
 
     @Mapping(source = "category.id", target = "categoryId")
+    @Mapping(source = "category.name", target = "categoryName")
     AccountItemDTO toDto(AccountItem accountItem);
 
     @Mapping(source = "categoryId", target = "category")

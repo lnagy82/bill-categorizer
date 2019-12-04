@@ -28,7 +28,7 @@
             "otherEntityName": "category",
             "otherEntityRelationshipName": "accountItem",
             "relationshipName": "category",
-            "otherEntityField": "id"
+            "otherEntityField": "name"
         }
     ],
     "changelogDate": "20191204181105",

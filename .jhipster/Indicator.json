@@ -1,8 +1,8 @@
 {
-    "name": "Category",
+    "name": "Indicator",
     "fields": [
         {
-            "fieldName": "name",
+            "fieldName": "text",
             "fieldType": "String"
         }
     ],
@@ -10,13 +10,13 @@
         {
             "relationshipType": "many-to-one",
             "otherEntityName": "category",
-            "otherEntityRelationshipName": "category",
-            "relationshipName": "parent",
+            "otherEntityRelationshipName": "indicator",
+            "relationshipName": "category",
             "otherEntityField": "name"
         }
     ],
-    "changelogDate": "20191204181104",
-    "entityTableName": "category",
+    "changelogDate": "20191204195405",
+    "entityTableName": "indicator",
     "dto": "mapstruct",
     "pagination": "no",
     "service": "serviceImpl",
