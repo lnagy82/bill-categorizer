@@ -69,5 +69,14 @@ export const accountItemRoute: Routes = [
       pageTitle: 'billcategorizerApp.accountItem.home.title'
     },
     canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':load',
+    component: AccountItemComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'billcategorizerApp.accountItem.home.title'
+    },
+    canActivate: [UserRouteAccessService]
   }
 ];

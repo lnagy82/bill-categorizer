@@ -1,5 +1,6 @@
 package com.billcat.web.rest;
 
+import com.billcat.security.AuthoritiesConstants;
 import com.billcat.service.AccountItemService;
 import com.billcat.web.rest.errors.BadRequestAlertException;
 import com.billcat.service.dto.AccountItemDTO;
@@ -16,6 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -100,6 +102,7 @@ public class AccountItemResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+
     /**
      * {@code GET  /account-items/:id} : get the "id" accountItem.
      *
@@ -124,5 +127,21 @@ public class AccountItemResource {
         log.debug("REST request to delete AccountItem : {}", id);
         accountItemService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+    
+    /**
+     * {@code GET  /account-items} : get all the accountItems.
+     *
+
+     * @param pageable the pagination information.
+
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of accountItems in body.
+     */
+    @GetMapping("/account-items/load")
+    public ResponseEntity<Void> getLoadAccountItems() {
+        log.debug("********* LOAD ************");
+        accountItemService.load();
+        
+        return ResponseEntity.noContent().build();
     }
 }

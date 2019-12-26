@@ -1,13 +1,31 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="billcategorizerApp.accountItem.home.title">Account Items</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-account-item" [routerLink]="['/account-item/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span  jhiTranslate="billcategorizerApp.accountItem.home.createLabel">
-            Create a new Account Item
-            </span>
-        </button>
-    </h2>
+		<table class="float-right">
+			<tr>
+				<th>
+					<button id="jh-create-entity"
+						class="btn btn-primary float-right jh-create-entity create-account-item"
+						[routerLink]="['/account-item/new']">
+						<fa-icon [icon]="'plus'"></fa-icon>
+						<span
+							jhiTranslate="billcategorizerApp.accountItem.home.createLabel">
+							Create a new Account Item </span>
+					</button>
+				</th>
+				<th>
+					<button id="load-entity"
+						class="btn btn-primary float-right jh-create-entity create-account-item"
+						(click)="load()" type="button">
+						<fa-icon [icon]="'plus'"></fa-icon>
+						<!--             <span  jhiTranslate="billcategorizerApp.accountItem.home.createLabel"> -->
+						Load entity
+						<!--             </span> -->
+					</button>
+				</th>
+			</tr>
+		</table>
+	</h2>
     <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
     <br/>

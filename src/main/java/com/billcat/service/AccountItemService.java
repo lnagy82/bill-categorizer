@@ -43,4 +43,11 @@ public interface AccountItemService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    
+    /**
+     * Load accountItems.
+     *
+     */
+    void load();
 }

@@ -55,6 +55,17 @@ export class AccountItemComponent implements OnInit, OnDestroy {
     this.accountItems = [];
     this.loadAll();
   }
+  
+  load() {
+
+    this.accountItemService.load().subscribe(() => {
+      this.eventManager.broadcast({
+        name: 'accountItemListModification',
+        content: 'Loaded accountItems'
+      });
+
+    });
+  }
 
   loadPage(page) {
     this.page = page;
