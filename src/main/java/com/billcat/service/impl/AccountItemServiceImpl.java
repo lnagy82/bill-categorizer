@@ -34,9 +34,11 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.TimeZone;
 
 /**
@@ -49,12 +51,15 @@ public class AccountItemServiceImpl implements AccountItemService {
     private final Logger log = LoggerFactory.getLogger(AccountItemServiceImpl.class);
 
     private final AccountItemRepository accountItemRepository;
+    
+    private final IndicatorRepository indicatorRepository;
 
     private final AccountItemMapper accountItemMapper;
 
-    public AccountItemServiceImpl(AccountItemRepository accountItemRepository, AccountItemMapper accountItemMapper) {
+    public AccountItemServiceImpl(AccountItemRepository accountItemRepository, AccountItemMapper accountItemMapper, IndicatorRepository indicatorRepository) {
         this.accountItemRepository = accountItemRepository;
         this.accountItemMapper = accountItemMapper;
+        this.indicatorRepository = indicatorRepository;
     }
 
     /**
@@ -117,7 +122,7 @@ public class AccountItemServiceImpl implements AccountItemService {
             file = new FileInputStream(new File("d:\\temp\\SzámlaMozgások0008EH2UW3511.xls"));
             Workbook workbook = new HSSFWorkbook(file);
             Sheet sheet = workbook.getSheetAt(0);
-            List<Indicator> indicators = 
+            List<Indicator> indicators = indicatorRepository.findAll();
             for (Row row : sheet) {
                 AccountItem accountItem = new AccountItem();
                 try {
@@ -132,9 +137,13 @@ public class AccountItemServiceImpl implements AccountItemService {
                     
                     Example<AccountItem> accountItemExample = Example.of(accountItem, ExampleMatcher.matchingAll());
                     
-                    if(accountItemRepository.findAll(accountItemExample).isEmpty())
+                    if(accountItemRepository.findAll(accountItemExample).isEmpty()) {
+                        determineCategory(indicators, accountItem);
                         accountItemRepository.save(accountItem);
+                    }
+                        
                 } catch (ParseException e) {
+                    System.out.println(e.getMessage() + row.getCell(0));
                     e.printStackTrace();
                 }
             }
@@ -144,6 +153,22 @@ public class AccountItemServiceImpl implements AccountItemService {
             e.printStackTrace();
         }
 
+    }
+    
+    private void determineCategory(List<Indicator> indicators, AccountItem accountItem) {
+        Indicator possibleIndicator = null;
+        int possibleIndicatorCount = 0;
+        for (Indicator indicator : indicators) {
+            if(accountItem.getDescription().toLowerCase().contains(indicator.getText().toLowerCase())) {
+                possibleIndicator = indicator;
+                if(++possibleIndicatorCount > 1)
+                    break;
+            }
+        }
+        
+        if(possibleIndicatorCount == 1) {
+            accountItem.setCategory(possibleIndicator.getCategory());
+        }
     }
 
     private String getCellValueAsString(Cell cell) {
